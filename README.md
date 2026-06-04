@@ -37,9 +37,9 @@ If you use a different directory, edit the dataset paths in the notebook configu
 
 If you do not want to train the base models yourself, **download** these checkpoint archives and place them where the downstream notebooks expect them.
 
-[dlmmdd_pad_processedval_eva02_large448_96gb_outputs.zip]([https://drive.google.com/file/d/1Dm04AUvwuxiP7gE45paJEzIL0W4T9_aJ/view?usp=sharing])
+[dlmmdd_pad_processedval_eva02_large448_96gb_outputs.zip](https://drive.google.com/file/d/1Dm04AUvwuxiP7gE45paJEzIL0W4T9_aJ/view?usp=sharing)
 
-[dlmmdd_robust_outputs.zip]([https://drive.google.com/file/d/1MZkfmhfamrz9ELg8NUUrsmI4c6xoKnVQ/view?usp=sharing])
+[dlmmdd_robust_outputs.zip](https://drive.google.com/file/d/1MZkfmhfamrz9ELg8NUUrsmI4c6xoKnVQ/view?usp=sharing)
 
 
 For Google Colab:
