@@ -63,7 +63,7 @@ For local execution:
 
 3. Run `DLMMDD_EVA02_Large_+_ConvNeXtV2_Balanced.ipynb`.
    Required inputs:
-   - `dlmmdd_pad_processedval_eva02_large448_96gb_outputs.zip` or `DLMMDD_EVA02_Large_+_ConvNeXtV2_Balanced.ipynb` notebook output
+   - `dlmmdd_pad_processedval_eva02_large448_96gb_outputs.zip` or `DLMMDD_EVA02_Large.ipynb` notebook output
    - `dlmmdd_robust_outputs.zip` or `DLMMDD_ConvNext_v2_large.ipynb` notebook output
 
    Main output:
