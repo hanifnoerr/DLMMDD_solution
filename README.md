@@ -1,96 +1,95 @@
-DLMMDD Synthetic Image Attribution Challenge 1st Place Solution
+# DLMMDD Synthetic Image Attribution Challenge: 1st Place Solution
 
-This repository contains our notebooks for the **DLMMDD Workshop Synthetic Source Attribution Challenge**.
-Final leaderboard score: **0.997333 private accuracy**.
-Best public submission: **0.999333 public accuracy**.
+This repository contains the notebooks used for the winning entry in the **DLMMDD Workshop Synthetic Source Attribution Challenge**. The best private leaderboard accuracy was **0.997333**. A separate submission reached the best public score of **0.999333**.
 
-## Notebook Results
+## Official Results
 
-Scores below are the official Kaggle public/private leaderboard scores captured after the competition. If a notebook writes more than one CSV, the table lists the CSV that was officially scored.
+The scores below were recorded after the competition closed. When a notebook produced several files, the table lists each file that received an official score.
 
-| Notebook | Method | CSV to submit | Public LB | Private LB | Notes |
-|---|---|---:|---:|---:|---|
-| `DLMMDD_EVA02_Large_+_ConvNeXtV2_Balanced.ipynb` | EVA02-Large + ConvNeXtV2 diverse ensemble with exact balanced assignment | `submission_diverse_balanced_exact.csv` | 0.999333 | 0.996666 | Best public score |
-| `DLMMDD_prior_logit_ensemble.ipynb` | Prior-logit ensemble with Sinkhorn balancing | `submission_balanced_sinkhorn.csv` | 0.998000 | 0.997333 | Best private-score submission |
-| `DLMMDD_prior_logit_ensemble.ipynb` | Prior-logit ensemble with exact balancing | `submission_balanced_exact.csv` | 0.998000 | 0.997333 | Same private score as Sinkhorn |
-| `DLMMDD_EVA02_Large.ipynb` | EVA02-Large processed-validation base model | `submission_pad_processedval_eva02_large448_96gb_orig.csv` | 0.996666 | 0.994666 | Main base checkpoint generator |
-| `DLMMDD_ConvNext_v2_large.ipynb` | ConvNeXt V2-Large fold ensemble | `submission_convnextv2_large.csv` | 0.989333 | 0.993333 | CNN baseline checkpoint generator |
+| Notebook | Method | CSV submitted | Public LB | Private LB |
+|---|---|---|---:|---:|
+| `DLMMDD_EVA02_Large_+_ConvNeXtV2_Balanced.ipynb` | Three-fold EVA02-Large and ConvNeXt V2-Large ensemble with exact balanced assignment | `submission_diverse_balanced_exact.csv` | **0.999333** | 0.996666 |
+| `DLMMDD_prior_logit_ensemble.ipynb` | Five-fold calibrated EVA02-Large ensemble with Sinkhorn balancing | `submission_balanced_sinkhorn.csv` | 0.998000 | **0.997333** |
+| `DLMMDD_prior_logit_ensemble.ipynb` | Five-fold calibrated EVA02-Large ensemble with exact balanced assignment | `submission_balanced_exact.csv` | 0.998000 | **0.997333** |
+| `[5folds] DLMMDD_ensemble_with_tta_and_calibration.ipynb` | Five-fold calibrated EVA02-Large ensemble before balancing | `submission_calibrated_ensemble.csv` | 0.996000 | **0.997333** |
+| `DLMMDD_EVA02_Large.ipynb` | Three-fold EVA02-Large processed-validation model | `submission_pad_processedval_eva02_large448_96gb_orig.csv` | 0.996666 | 0.994666 |
+| `DLMMDD_EVA02_Large448_96GB_LBPush_5Fold.ipynb` | Five-fold EVA02-Large, original test view | `submission_pad_processedval_eva02_large448_96gb_5fold_orig.csv` | 0.995333 | 0.995333 |
+| `DLMMDD_ConvNext_v2_large.ipynb` | Three-fold ConvNeXt V2-Large ensemble | `submission_convnextv2_large.csv` | 0.989333 | 0.993333 |
 
-## Dataset and Credential Setup
+## Dataset Access
 
-To run the notebooks from scratch, you must join the Kaggle competition and use your own Kaggle credentials.
+Join the Kaggle competition before running the notebooks. The dataset is private to accepted competition participants, so each user must authenticate with a personal Kaggle credential.
 
-1. Join the competition page on Kaggle.
-2. Create or download your Kaggle API token from your Kaggle account settings.
-3. Upload `kaggle.json` in Colab, or place it in the standard Kaggle config directory on your local machine.
-4. Run the notebook cells that authenticate with Kaggle and download the competition data.
+1. Join the competition on Kaggle.
+2. Create or download `kaggle.json` from the Kaggle account settings.
+3. Upload the credential in Colab, or place it in the standard Kaggle configuration directory for a local run.
+4. Run the authentication and competition-download cells.
 
-The notebooks expect the competition dataset to be available in the paths used by Kaggle/Colab, for example:
+The Colab notebooks expect data under:
 
 ```text
 /root/.cache/kagglehub/competitions/dlmmdd-workshop-synthetic-source-attribution-challenge
 ```
 
-If you use a different directory, edit the dataset paths in the notebook configuration cells.
+Edit the configuration paths when using another location. Do not commit a Kaggle credential to this repository.
 
-## Checkpoint Setup
+## Checkpoints
 
-If you do not want to train the base models yourself, **download** these checkpoint archives and place them where the downstream notebooks expect them.
+Training can be skipped when compatible checkpoints are available:
 
-[dlmmdd_pad_processedval_eva02_large448_96gb_outputs.zip](https://drive.google.com/file/d/1Dm04AUvwuxiP7gE45paJEzIL0W4T9_aJ/view?usp=sharing)
+- [Three-fold EVA02-Large checkpoint archive](https://drive.google.com/file/d/1Dm04AUvwuxiP7gE45paJEzIL0W4T9_aJ/view?usp=sharing)
+- [Three-fold ConvNeXt V2-Large checkpoint archive](https://drive.google.com/file/d/1MZkfmhfamrz9ELg8NUUrsmI4c6xoKnVQ/view?usp=sharing)
 
-[dlmmdd_robust_outputs.zip](https://drive.google.com/file/d/1MZkfmhfamrz9ELg8NUUrsmI4c6xoKnVQ/view?usp=sharing)
+The five-fold private-best path also needs EVA02-Large folds 3 and 4. Generate them with `DLMMDD_EVA02_Large448_96GB_LBPush_5Fold.ipynb`, or place a complete five-fold archive in the location configured by the calibrated-inference notebook.
 
+For Colab, upload each archive to `/content/` or `/content/drive/MyDrive/` and edit the path variables. For a local run, extract the archives into the project directory and point the notebook configuration to those directories.
 
-For Google Colab:
+## Private-Best Path
 
-1. Download the checkpoint `.zip` files from the links below.
-2. Upload them to `/content/`, `/content/drive/MyDrive/`, or another Colab-accessible directory.
-3. Edit the notebook path variables so they point to your uploaded files.
+The private-best submission uses EVA02-Large only. ConvNeXt and pseudo-label fine-tuning are not part of this path.
 
-For local execution:
+1. Run `DLMMDD_EVA02_Large.ipynb` to train folds 0, 1, and 2. It writes checkpoints to `dlmmdd_pad_processedval_eva02_large448_96gb_outputs`.
+2. Put those checkpoints in the output directory used by `DLMMDD_EVA02_Large448_96GB_LBPush_5Fold.ipynb`. With `force_retrain=False`, the notebook reuses folds 0-2 and trains folds 3-4.
+3. Archive the resulting five checkpoints as `dlmmdd_pad_processedval_eva02_large448_96gb_outputs5folds.zip`, or edit the archive path in `[5folds] DLMMDD_ensemble_with_tta_and_calibration.ipynb`.
+4. Run the calibrated-inference notebook. It fits one temperature per fold on the matching processed-validation split, predicts four test views, and averages the five calibrated log-probability matrices with equal weight.
+5. Keep the generated `ensemble_logprobs.npy` and `ensemble_ids.csv` in the same row order. Run `DLMMDD_prior_logit_ensemble.ipynb` to create the raw, Sinkhorn-balanced, and exact-balanced submissions.
 
-1. Download and extract the checkpoint archives into your local project directory.
-2. Edit the checkpoint paths in the notebook configuration cells.
+The four inference views combine scales `1.0` and `0.92`, each with and without a horizontal flip. The fitted fold temperatures were `0.558371`, `0.598287`, `0.585643`, `0.594193`, and `0.586100`.
 
-## Run Order
+The test set contains 3,000 images from ten sources. The competition composition and the observed training counts establish a target of 300 test images per class. Sinkhorn scaling adjusts the class marginals softly and changed three raw predictions. Exact assignment changed seven predictions while enforcing exactly 300 predictions per class. Both submissions retained the private score of 0.997333.
 
-1. Run `paper/public999333private996666/DLMMDD_EVA02_Large.ipynb`.
-   This trains the EVA02-Large base model and produces the base submission plus the `dlmmdd_pad_processedval_eva02_large448_96gb_outputs` checkpoint directory.
+## Best-Public Path
 
-2. Run the ConvNeXtV2 checkpoint notebook.
-   The diverse ensemble expects a ConvNeXtV2 checkpoint archive named `dlmmdd_robust_outputs.zip`. In this repository, the archived ConvNeXtV2-Large notebook is `DLMMDD_ConvNext_v2_large.ipynb`.
+The best-public submission follows a separate branch:
 
-3. Run `DLMMDD_EVA02_Large_+_ConvNeXtV2_Balanced.ipynb`.
-   Required inputs:
-   - `dlmmdd_pad_processedval_eva02_large448_96gb_outputs.zip` or `DLMMDD_EVA02_Large.ipynb` notebook output
-   - `dlmmdd_robust_outputs.zip` or `DLMMDD_ConvNext_v2_large.ipynb` notebook output
+1. Run `DLMMDD_EVA02_Large.ipynb` and `DLMMDD_ConvNext_v2_large.ipynb`, or load their three-fold checkpoint archives.
+2. Run `DLMMDD_EVA02_Large_+_ConvNeXtV2_Balanced.ipynb`.
+3. Submit `submission_diverse_balanced_exact.csv`.
 
-   Main output:
-   - `submission_diverse_balanced_exact.csv`
+This notebook calibrates each fold, evaluates four test views, and performs an out-of-fold weight sweep. The recorded sweep selected a ConvNeXt V2-Large weight of `0.40` and an EVA02-Large weight of `0.60`. Exact balanced assignment then changed five predictions. This branch achieved the highest public score but not the highest private score.
 
-4. Run `DLMMDD_prior_logit_ensemble.ipynb`.
-   Required inputs:
-   - `ensemble_logprobs.npy` and `ensemble_ids.csv` from `dlmmdd_pad_processedval_eva02_large448_96gb_outputs.zip` or `DLMMDD_EVA02_Large_+_ConvNeXtV2_Balanced.ipynb` notebook output
+## Artifact Integrity
 
-   Main output:
-   - `submission_balanced_sinkhorn.csv`
-   - `submission_balanced_exact.csv`
+The two generated test-prediction arrays are not committed. Recreate them with the calibrated-inference notebook and compare their SHA-256 hashes before applying marginal balancing:
 
+| Artifact | SHA-256 |
+|---|---|
+| `[5folds] DLMMDD_ensemble_with_tta_and_calibration.ipynb` | `e4eb095a27e7104b487cc11f99816f59833967a48fceeb532187350fac86003f` |
+| `DLMMDD_EVA02_Large448_96GB_LBPush_5Fold.ipynb` | `441ca3c3cad22d1f19f754021711e28c7370f7c62458fba6a3138cda84e8d199` |
+| `ensemble_logprobs.npy` | `48defd0eb038ca8424f1460b5f63a3374e0c85dafdd6bcf1836a3e52d9af386c` |
+| `ensemble_ids.csv` | `af9d7adce4699b68f7541040e1c3f2a5b1b6c5590d260afd7c598de6f5dd95ed` |
 
-## Method Summary
-The final solution combines:
-- processed-validation checkpointing for the hidden train/test post-processing shift;
-- EVA02-Large as the strongest base model;
-- ConvNeXtV2 as a complementary CNN family;
-- out-of-fold temperature calibration;
-- weighted log-softmax ensembling;
-- pseudo-label fine-tuning as an additional experiment;
-- class-marginal balancing using the known 300-test-images-per-class structure.
+## Hardware and Runtime
 
-## Hardware Notes
-The main notebooks were run on Google Colab with different GPUs:
-- EVA02-Large base notebook: NVIDIA RTX PRO 6000 Blackwell Server Edition, about 95GB VRAM.
-- ConvNeXt V2-Large notebook: NVIDIA A100-SXM4-80GB.
-- Final ensemble notebooks: L4 GPU.
+All recorded runs used Google Colab. Runtime comparisons are approximate because the notebooks ran on different GPU models and included different amounts of inference and file handling.
 
+| Stage | Hardware | Recorded or estimated time |
+|---|---|---:|
+| EVA02-Large folds 0-2 | NVIDIA RTX PRO 6000 Blackwell Server Edition, 96 GB | 169.5 min from epoch logs |
+| EVA02-Large folds 3-4 | NVIDIA RTX PRO 6000 Blackwell Server Edition, 96 GB | about 113.7 min from epoch timings |
+| Five-fold EVA02-Large training total | NVIDIA RTX PRO 6000 Blackwell Server Edition, 96 GB | about 283.2 min |
+| Five-fold calibration and four-view inference | NVIDIA L4 | 59.6 min for the inference cell |
+| ConvNeXt V2-Large folds 0-2 | NVIDIA A100-SXM4-80GB | 93.9 min from epoch logs |
+| Diverse ensemble and marginal balancing | NVIDIA L4 Colab session | consolidated runtime not captured |
+
+The 59.6-minute calibrated-inference figure excludes the separate dataset download and checkpoint extraction cells. Marginal balancing runs on the saved `3000 x 10` score matrix and takes little time compared with model inference.
