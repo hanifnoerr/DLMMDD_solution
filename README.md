@@ -1,4 +1,4 @@
-DLMMDD Synthetic Image Attribution Challenge Solution
+DLMMDD Synthetic Image Attribution Challenge 1st Place Solution
 
 This repository contains our notebooks for the **DLMMDD Workshop Synthetic Source Attribution Challenge**.
 Final leaderboard score: **0.997333 private accuracy**.
